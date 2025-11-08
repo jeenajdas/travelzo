@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 🌿 Basic resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🌤️ Clean and minimalist base */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #f9fafb; /* soft neutral background */
+  color: #111827; /* neutral gray-black text */
+  overflow-x: hidden;
+}
+
+/* ✨ Navbar styles (transparent until scroll) */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  background: transparent;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.6);
+}
+
+/* 🌈 Hero section - soft gradient or light background image */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* background: linear-gradient(to bottom right, #ffffff, #f1f5f9); */
+  /* If you want to use an image instead, comment the above line and use this:
+     background: url('/assets/hero-bg.jpg') center/cover no-repeat; */
+}
+
+/* 🧊 Glass utility classes */
+@layer utilities {
+  .glass {
+    @apply bg-white/10 backdrop-blur-md border border-white/20;
+  }
+
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-lg border border-gray-200 shadow-lg;
+  }
+
+  .glass-dark {
+    @apply bg-black/30 backdrop-blur-lg border border-white/10;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent;
+  }
+}
+
+/* 🖱️ Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
