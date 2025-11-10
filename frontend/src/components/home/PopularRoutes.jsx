@@ -1,188 +1,130 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const PopularRoutes = () => {
+  const navigate = useNavigate();
+
   const routes = [
     {
       id: 1,
-      name: 'Delhi',
-      image: 'https://images.unsplash.com/photo-1580168667228-57569169ea1f?w=600&h=400&fit=crop',
-      description: 'Explore the capital city',
+      name: "Delhi",
+      image:
+        "https://images.unsplash.com/photo-1583241800516-7c49b4a0a3dd?auto=format&fit=crop&w=1740&q=80",
+      description: "Explore the vibrant capital city of India.",
     },
     {
       id: 2,
-      name: 'Rome',
-      image: 'https://images.unsplash.com/photo-1552832860-cfaf67f1aa60?w=600&h=400&fit=crop',
-      description: 'Ancient history awaits',
+      name: "Kochi",
+      image:
+        "https://images.unsplash.com/photo-1592819445603-0b1e5b7b5a5c?auto=format&fit=crop&w=1740&q=80",
+      description: "The queen of the Arabian Sea.",
     },
     {
       id: 3,
-      name: 'Prague',
-      image: 'https://images.unsplash.com/photo-1577991472893-8f20484ee32f?w=600&h=400&fit=crop',
-      description: 'City of a hundred spires',
+      name: "Goa",
+      image:
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1740&q=80",
+      description: "Sun, sand, and serene beaches await you.",
     },
     {
       id: 4,
-      name: 'Mumbai',
-      image: 'https://images.unsplash.com/photo-1514565131-fce0801e5785?w=600&h=400&fit=crop',
-      description: 'City of dreams',
+      name: "Jaipur",
+      image:
+        "https://images.unsplash.com/photo-1533106418989-88406c7cc8e1?auto=format&fit=crop&w=1740&q=80",
+      description: "Experience the royal pink city of Rajasthan.",
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
+  const handleBookNow = (routeName) => {
+    navigate("/search-results", {
+      state: {
+        from: "Your City",
+        to: routeName,
+        date: new Date().toISOString().split("T")[0],
       },
-    },
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
+    });
   };
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
+    <section className="py-24 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="mb-16"
+          className="mb-16 text-left"
         >
-          <p className="text-orange-500 font-semibold tracking-widest uppercase mb-2">
-            Let's Ride Together
+          <h2 className="text-[3.5rem] leading-tight font-extrabold text-gray-900 mb-4">
+            Popular <span className="text-blue-600">Routes</span>
+          </h2>
+          <p className="text-gray-600 text-lg max-w-2xl">
+            Choose from our most loved destinations and start your journey with
+            comfort and ease.
           </p>
-          <div className="relative inline-block">
-            <h2 className="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4">
-              Popular Routes
-            </h2>
-            {/* Animated Underline */}
-            <motion.div
-              initial={{ width: 0 }}
-              whileInView={{ width: '100%' }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              viewport={{ once: true }}
-              className="absolute bottom-0 left-0 h-1 bg-gradient-to-r from-orange-500 to-orange-400"
-            ></motion.div>
-          </div>
+          <div className="mt-4 w-24 h-[4px] bg-gradient-to-r from-blue-600 to-cyan-400 rounded-full"></div>
         </motion.div>
 
-        {/* Routes Grid */}
+        {/* Route Cards */}
         <motion.div
-          variants={containerVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {routes.map((route) => (
+          {routes.map((route, index) => (
             <motion.div
               key={route.id}
-              variants={cardVariants}
-              whileHover={{ y: -10 }}
-              className="group relative h-96 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: index * 0.15 }}
+              className="group relative rounded-3xl overflow-hidden shadow-xl cursor-pointer h-[460px]"
             >
-              {/* Card Image */}
+              {/* Background Image */}
+              <img
+                src={route.image}
+                alt={route.name}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+
+              {/* Hover Overlay Gradient Animation */}
               <motion.div
-                className="relative w-full h-full"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4 }}
-              >
-                <img
-                  src={route.image}
-                  alt={route.name}
-                  className="w-full h-full object-cover"
-                />
-
-                {/* Overlay - Top */}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-transparent"></div>
-
-                {/* Content - Top (Always Visible) */}
-                <div className="absolute top-0 left-0 right-0 p-6 z-10">
-                  <h3 className="text-3xl font-bold text-white drop-shadow-lg">
-                    {route.name}
-                  </h3>
-                  <p className="text-gray-200 text-sm mt-2">{route.description}</p>
-                </div>
-
-                {/* Gradient Overlay - Bottom (Hover Effect) */}
-                <motion.div
-                  initial={{ y: '100%' }}
-                  whileHover={{ y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-gradient-to-t from-[#1e3a8a] via-[#1e40af]/80 to-transparent"
-                ></motion.div>
-
-                {/* Book Now Button - Bottom */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between z-20"
-                >
-                  <div>
-                    <p className="text-white/90 text-sm mb-2">Ready to explore?</p>
-                    <p className="text-white font-semibold text-lg">Book your journey</p>
-                  </div>
-                  <Link
-                    to="/SeatSelection"
-                    className="flex-shrink-0"
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.1, x: 5 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="p-3 bg-white rounded-full shadow-lg hover:shadow-xl transition-all"
-                    >
-                      <ArrowRight className="w-6 h-6 text-blue-600" />
-                    </motion.button>
-                  </Link>
-                </motion.div>
-              </motion.div>
-
-              {/* Card Border Glow on Hover */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileHover={{ opacity: 1 }}
-                className="absolute inset-0 border-2 border-orange-400 rounded-2xl pointer-events-none"
+                initial={{ y: "100%" }}
+                whileHover={{ y: "0%" }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-700/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"
               ></motion.div>
+
+              {/* Content Overlay */}
+              <div className="absolute bottom-0 left-0 w-full p-6 z-10 transition-all duration-500 group-hover:bottom-10">
+                <motion.h3
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="text-3xl font-bold text-white drop-shadow-lg"
+                >
+                  {route.name}
+                </motion.h3>
+                <p className="text-gray-200 text-sm mb-4">{route.description}</p>
+
+                {/* Book Now Button */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => handleBookNow(route.name)}
+                  className="mt-3 inline-flex items-center gap-2 px-5 py-3 bg-white text-blue-700 font-semibold rounded-full shadow-md hover:shadow-xl transition-all opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 duration-500"
+                >
+                  Book Now <ArrowRight className="w-5 h-5" />
+                </motion.button>
+              </div>
+
+              {/* Glow Border */}
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-400/60 rounded-3xl transition-all duration-300"></div>
             </motion.div>
           ))}
-        </motion.div>
-
-        {/* CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <p className="text-gray-600 text-lg mb-6">
-            Can't find your destination? 
-            <span className="text-orange-500 font-semibold ml-2">Browse all routes</span>
-          </p>
-          <Link to="/routes">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold rounded-lg hover:shadow-2xl transition-all duration-300 inline-flex items-center gap-2"
-            >
-              View All Routes
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
-          </Link>
         </motion.div>
       </div>
     </section>
